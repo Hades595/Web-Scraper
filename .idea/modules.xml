@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Web Scraper.iml" filepath="$PROJECT_DIR$/.idea/Web Scraper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WebScraper/WebScraper.iml" filepath="$PROJECT_DIR$/WebScraper/WebScraper.iml" />
+    </modules>
+  </component>
+</project>
