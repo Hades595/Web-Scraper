@@ -10,27 +10,47 @@ import java.util.Scanner;
 
 public class Main {
 
+    //ArrayList for URLs
+    public static ArrayList<String> urls = new ArrayList<>();
+    //Hyperlinks found in the page
+    public static ArrayList<String> hyperLinks = new ArrayList<>();
+
+
     public static void main(String[] args) {
-        ArrayList<String> urls = new ArrayList<>();
+        readUrls();
+        processUrls();
+
+    }
+
+    public static void readUrls(){
         try {
+            //Get the list of the URLs
             File file = new File("WebScraper/URLs.txt");
             Scanner reader = new Scanner(file);
-            while (reader.hasNext()){
+            while (reader.hasNext()) {
+                //For each of the Urls in the file, add them into the array
                 String data = reader.nextLine();
                 urls.add(data);
             }
             reader.close();
+        }
+        catch (Exception ex) {
+        }
+    }
 
-            for (String url: urls) {
+    public static void processUrls(){
+        try {
+            //For each of the URLs
+            for (String url : urls) {
+                //Get the document
                 Document document = Jsoup.connect(url).get();
-
+                //Get the all the hyperlinks
                 Elements pageElements = document.select("a[href]");
 
-                ArrayList<String> hyperLinks = new ArrayList<String>();
-
-                for (Element e:pageElements) {
+                for (Element e : pageElements) {
+                    //Sort through the links to find the articles
                     if (e.attr("href").matches("^(https)://.*$"))
-                        hyperLinks.add(e.attr("href"));
+                        hyperLinks.add(e.attr("href")); //Add them to the hyperLinks arrayList
                 }
 
                 for (String s : hyperLinks) {
@@ -38,11 +58,15 @@ public class Main {
                 }
 
             }
-
-
         }
         catch (Exception ex){
 
         }
+
     }
+
+    public static void processArticles(){
+
+    }
+
 }
