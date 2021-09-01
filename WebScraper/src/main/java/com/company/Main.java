@@ -1,29 +1,45 @@
 package com.company;
+
 import org.jsoup.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        String url = "https://arstechnica.com/";
+        ArrayList<String> urls = new ArrayList<>();
         try {
-            Document document = Jsoup.connect(url).get();
+            File file = new File("WebScraper/URLs.txt");
+            Scanner reader = new Scanner(file);
+            while (reader.hasNext()){
+                String data = reader.nextLine();
+                urls.add(data);
+            }
+            reader.close();
 
-            Elements pageElements = document.select("a[href]");
+            for (String url: urls) {
+                Document document = Jsoup.connect(url).get();
 
-            ArrayList<String> hyperLinks = new ArrayList<String>();
+                Elements pageElements = document.select("a[href]");
 
-            for (Element e:pageElements) {
-                hyperLinks.add("Text: " + e.text());
-                hyperLinks.add("Link: " + e.attr("href"));
+                ArrayList<String> hyperLinks = new ArrayList<String>();
+
+                for (Element e:pageElements) {
+                    if (e.attr("href").matches("^(https)://.*$"))
+                        hyperLinks.add(e.attr("href"));
+                }
+
+                for (String s : hyperLinks) {
+                    System.out.println(s);
+                }
+
             }
 
-            for (String s : hyperLinks) {
-                System.out.println(s);
-            }
+
         }
         catch (Exception ex){
 

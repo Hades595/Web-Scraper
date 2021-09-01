@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="WebScraper" target="16" />
+      <module name="WebScraper" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>
