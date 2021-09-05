@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,11 +15,14 @@ public class Main {
     public static ArrayList<String> urls = new ArrayList<>();
     //Hyperlinks found in the page
     public static ArrayList<String> hyperLinks = new ArrayList<>();
+    //Article list
+    public static ArrayList<String> articles = new ArrayList<>();
 
 
     public static void main(String[] args) {
         readUrls();
         processUrls();
+        processArticles();
 
     }
 
@@ -47,15 +51,16 @@ public class Main {
                 //Get the all the hyperlinks
                 Elements pageElements = document.select("a[href]");
 
-                for (Element e : pageElements) {
+                for (Element element : pageElements) {
                     //Sort through the links to find the articles
-                    if (e.attr("href").matches("^(https)://.*$"))
-                        hyperLinks.add(e.attr("href")); //Add them to the hyperLinks arrayList
+                    if (element.attr("href").matches("^(https)://.*$"))
+                        hyperLinks.add(element.attr("href")); //Add them to the hyperLinks arrayList
                 }
-
+                /*
                 for (String s : hyperLinks) {
                     System.out.println(s);
                 }
+                 */
 
             }
         }
@@ -66,7 +71,49 @@ public class Main {
     }
 
     public static void processArticles(){
+        try{
+            for (String hyperlink : hyperLinks) {
+                //Get the document
+                Document document = Jsoup.connect(hyperlink).get();
+                //Get the meta tags
+                Elements metaTags = document.select("meta[property^=og:type]");
+                for (Element metaTag: metaTags){
+                    if (metaTag.attr("content").equals("article"))
+                        System.out.println("Article Found! " + hyperlink);
+                }
 
+
+                if (metaTags.attr("type").equals("article")){
+                    System.out.println("Article Found! " + hyperlink);
+                }
+
+                /*
+                //For each of the meta tags
+                for (Element metaTag: metaTags){
+                    String content = metaTag.attr("content");
+                    if (content.equals("article")){
+                        System.out.println("Article Found! " + hyperlink);
+
+                    }
+                }
+
+                 */
+
+                /*
+                if (document.select("meta[property=og:type]").first().attr("article") != null)
+                    System.out.println("true");
+                //String metaProperty = document.select("meta[property=og:type]").first().attr("article");
+                else
+                    System.out.println("false");
+
+                 */
+
+            }
+            System.out.println("Done");
+
+        }catch (Exception ex){
+
+        }
     }
 
 }
