@@ -4,10 +4,15 @@ import org.jsoup.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.io.BufferedWriter;
 import java.io.File;
-import java.lang.reflect.Array;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -22,7 +27,9 @@ public class Main {
     public static void main(String[] args) {
         readUrls();
         processUrls();
-        processArticles();
+        processArticlesViaDates();
+        saveToFile();
+        System.exit(0);
 
     }
 
@@ -38,7 +45,7 @@ public class Main {
             }
             reader.close();
         }
-        catch (Exception ex) {
+        catch (Exception ignore) {
         }
     }
 
@@ -56,64 +63,103 @@ public class Main {
                     if (element.attr("href").matches("^(https)://.*$"))
                         hyperLinks.add(element.attr("href")); //Add them to the hyperLinks arrayList
                 }
+
+
                 /*
                 for (String s : hyperLinks) {
                     System.out.println(s);
                 }
                  */
 
+
             }
         }
-        catch (Exception ex){
+        catch (Exception ignore){
 
         }
 
     }
 
-    public static void processArticles(){
+    /*
+    public static void processArticlesViaMeta(){
         try{
+            //All the websites have <meta property="og:type" content="article">
+            //And date of the published article
+            // Regex: ([0-9]+(/[0-9]+)+)
+
+
             for (String hyperlink : hyperLinks) {
                 //Get the document
                 Document document = Jsoup.connect(hyperlink).get();
                 //Get the meta tags
-                Elements metaTags = document.select("meta[property^=og:type]");
-                for (Element metaTag: metaTags){
-                    if (metaTag.attr("content").equals("article"))
-                        System.out.println("Article Found! " + hyperlink);
-                }
+                Elements metaTags = document.select("meta");
 
+                Element propertyMetaTag = document.select("meta[property=og:type]").first();
 
-                if (metaTags.attr("type").equals("article")){
+                System.out.println(propertyMetaTag.attr("content"));
+
+                if (propertyMetaTag.attr("content").equals("article")) {
                     System.out.println("Article Found! " + hyperlink);
+                    System.out.println("Done");
                 }
-
-                /*
-                //For each of the meta tags
-                for (Element metaTag: metaTags){
-                    String content = metaTag.attr("content");
-                    if (content.equals("article")){
-                        System.out.println("Article Found! " + hyperlink);
-
-                    }
-                }
-
-                 */
-
-                /*
-                if (document.select("meta[property=og:type]").first().attr("article") != null)
-                    System.out.println("true");
-                //String metaProperty = document.select("meta[property=og:type]").first().attr("article");
                 else
-                    System.out.println("false");
-
-                 */
+                    continue;
 
             }
-            System.out.println("Done");
 
-        }catch (Exception ex){
+
+
+        }catch (Exception ignore){
 
         }
+    }
+     */
+
+
+    private static final String validPattern = "([0-9]+(/[0-9]+)+)";
+
+    public static void processArticlesViaDates(){
+        try{
+            //All the websites have date of the published article
+            // Regex: ([0-9]+(/[0-9]+)+)
+
+
+            for (String hyperlink : hyperLinks) {
+                Pattern pattern = Pattern.compile(validPattern);
+                Matcher matcher = pattern.matcher(hyperlink);
+                if (matcher.find()){
+                    System.out.println(hyperlink);
+                    articles.add(hyperlink);
+                }
+            }
+
+
+        }catch (Exception ignore){
+
+        }
+    }
+
+    public static void saveToFile() {
+        try {
+            //To output the articles
+            BufferedWriter outputWriter = null;
+            //New file if it doesn't exist
+            outputWriter = new BufferedWriter(new FileWriter("articles.txt"));
+            //For each article
+            for (String article : articles) {
+                //Add it to the file
+                outputWriter.write(article + "");
+                outputWriter.newLine();
+            }
+            //Flush the writer
+            outputWriter.flush();
+            //Close it
+            outputWriter.close();
+        }
+        catch (Exception ex){
+            System.out.println("Something went wrong: " + ex);
+        }
+
     }
 
 }
