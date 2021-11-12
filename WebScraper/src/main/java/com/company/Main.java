@@ -46,6 +46,7 @@ public class Main {
             reader.close();
         }
         catch (Exception ignore) {
+            System.out.println("Something went wrong: ");
         }
     }
 
@@ -75,10 +76,12 @@ public class Main {
             }
         }
         catch (Exception ignore){
-
+            System.out.println("Something went wrong: ");
         }
 
     }
+
+    //Need to work on a more permanent solution
 
     /*
     public static void processArticlesViaMeta(){
@@ -135,6 +138,7 @@ public class Main {
 
 
         }catch (Exception ignore){
+            System.out.println("Something went wrong: ");
 
         }
     }
