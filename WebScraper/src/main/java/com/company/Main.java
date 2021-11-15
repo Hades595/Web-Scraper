@@ -1,14 +1,16 @@
 package com.company;
 
+import com.mysql.jdbc.ResultSetMetaData;
 import org.jsoup.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -26,14 +28,37 @@ public class Main {
 
     public static void main(String[] args) {
         readUrls();
-        processUrls();
-        processArticlesViaDates();
-        saveToFile();
-        System.exit(0);
+        //processUrls();
+        //processArticlesViaDates();
+        //saveToFile();
+        //System.exit(0);
 
     }
 
     public static void readUrls(){
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            java.sql.Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/websites","root","");
+            Statement stmt = c.createStatement();
+            String SQL = "SELECT * FROM `websites`";
+            ResultSet rs = stmt.executeQuery(SQL);
+            ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+
+            int columnsNumber = rsmd.getColumnCount();
+            while (rs.next()) {
+                for (int i = 2; i <= columnsNumber; i++) {
+                    String columnValue = rs.getString(i);
+                    System.out.println(columnValue);
+                }
+            }
+
+
+        }catch (Exception ex){
+            System.out.println("Something went wrong: " + ex);
+        }
+
+        /*
         try {
             //Get the list of the URLs
             File file = new File("WebScraper/URLs.txt");
@@ -46,8 +71,9 @@ public class Main {
             reader.close();
         }
         catch (Exception ignore) {
-            System.out.println("Something went wrong: ");
+            System.out.println("Something went wrong");
         }
+         */
     }
 
     public static void processUrls(){

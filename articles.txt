@@ -1,8 +1,10 @@
 https://www.welivesecurity.com/2021/10/27/wslink-unique-undocumented-malicious-loader-runs-server/
 https://www.welivesecurity.com/2021/10/07/fontonlake-previously-unknown-malware-family-targeting-linux/
 https://www.welivesecurity.com/2021/10/06/moon-hack-fake-safemoon-cryptocurrency-app-drops-malware-spy/
+https://www.welivesecurity.com/2021/11/15/fbi-systems-compromised-send-out-fake-attack-alerts/
 https://www.welivesecurity.com/2021/11/11/alarms-go-off-10-steps-take-data-breach/
-https://www.welivesecurity.com/2021/11/10/google-scores-big-win-court-iphone-tracking-lawsuit/
+https://www.welivesecurity.com/2021/11/15/fbi-systems-compromised-send-out-fake-attack-alerts/
+https://www.welivesecurity.com/2021/11/15/fbi-systems-compromised-send-out-fake-attack-alerts/
 https://www.welivesecurity.com/2021/11/11/alarms-go-off-10-steps-take-data-breach/
 https://www.welivesecurity.com/2021/11/11/alarms-go-off-10-steps-take-data-breach/
 https://www.welivesecurity.com/2021/11/10/google-scores-big-win-court-iphone-tracking-lawsuit/
@@ -33,10 +35,6 @@ https://www.welivesecurity.com/2021/10/21/cybersecurity-careers-what-know-how-ge
 https://www.welivesecurity.com/2021/10/21/cybersecurity-careers-what-know-how-get-started/
 https://www.welivesecurity.com/2021/10/20/brave-browser-replaces-google-own-search-engine/
 https://www.welivesecurity.com/2021/10/20/brave-browser-replaces-google-own-search-engine/
-https://www.welivesecurity.com/2021/10/19/52-billion-bitcoin-transactions-possibly-tied-ransomware/
-https://www.welivesecurity.com/2021/10/19/52-billion-bitcoin-transactions-possibly-tied-ransomware/
-https://www.welivesecurity.com/2021/10/19/recipe-failure-predictably-poor-passwords/
-https://www.welivesecurity.com/2021/10/19/recipe-failure-predictably-poor-passwords/
 https://threatpost.com/top-mobile-security-stories-2019/151420/
 https://threatpost.com/top-mobile-security-stories-2019/151420/
 https://threatpost.com/biggest-malware-threats-of-2019/151423/
@@ -45,6 +43,10 @@ https://threatpost.com/biggest-malware-threats-of-2019/151423/#comments
 https://threatpost.com/top-10-iot-disasters-of-2019/151235/
 https://threatpost.com/top-10-iot-disasters-of-2019/151235/
 https://threatpost.com/top-10-iot-disasters-of-2019/151235/#comments
+https://nakedsecurity.sophos.com/2021/11/13/dhs-warning-about-hackers-in-your-network-dont-panic/
+https://nakedsecurity.sophos.com/2021/11/13/dhs-warning-about-hackers-in-your-network-dont-panic/
+https://nakedsecurity.sophos.com/2021/11/12/samba-update-patches-plaintext-passwork-plundering-problem/
+https://nakedsecurity.sophos.com/2021/11/12/samba-update-patches-plaintext-passwork-plundering-problem/
 https://nakedsecurity.sophos.com/2021/11/11/s3-ep58-faces-on-facebook-scams-that-pose-as-complaints-and-a-kaseya-bust-podcast/
 https://nakedsecurity.sophos.com/2021/11/11/s3-ep58-faces-on-facebook-scams-that-pose-as-complaints-and-a-kaseya-bust-podcast/
 https://nakedsecurity.sophos.com/2021/11/10/patch-tuesday-updates-the-win-7-updater-for-at-most-1-more-year-of-updates/
@@ -61,7 +63,3 @@ https://nakedsecurity.sophos.com/2021/11/03/facebook-to-throw-out-face-recogniti
 https://nakedsecurity.sophos.com/2021/11/03/facebook-to-throw-out-face-recognition-delete-all-template-data/
 https://nakedsecurity.sophos.com/2021/10/30/europol-announce-targeting-of-12-suspects-in-ransomware-attacks/
 https://nakedsecurity.sophos.com/2021/10/30/europol-announce-targeting-of-12-suspects-in-ransomware-attacks/
-https://nakedsecurity.sophos.com/2021/10/29/microsoft-documents-shrootless-hack-patched-in-latest-apple-updates/
-https://nakedsecurity.sophos.com/2021/10/29/microsoft-documents-shrootless-hack-patched-in-latest-apple-updates/
-https://nakedsecurity.sophos.com/2021/10/29/microsoft-edge-finally-arrives-on-linux-official-build-lands-in-repos/
-https://nakedsecurity.sophos.com/2021/10/29/microsoft-edge-finally-arrives-on-linux-official-build-lands-in-repos/
