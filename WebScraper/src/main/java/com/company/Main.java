@@ -7,12 +7,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.*;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,22 +24,29 @@ public class Main {
     //Article list
     public static ArrayList<String> articles = new ArrayList<>();
 
+    public static java.sql.Connection getConnection(){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/websites","root","");
+        }catch (Exception ex){
+            System.out.println(ex);
+        }
+        return null;
+    }
+
 
     public static void main(String[] args) {
         readUrls();
-        //processUrls();
-        //processArticlesViaDates();
-        //saveToFile();
-        //System.exit(0);
-
+        processUrls();
+        processArticlesViaDates();
+        saveToFile();
+        System.exit(0);
     }
 
     public static void readUrls(){
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            java.sql.Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/websites","root","");
-            Statement stmt = c.createStatement();
+            Statement stmt = Objects.requireNonNull(getConnection()).createStatement();
             String SQL = "SELECT * FROM `websites`";
             ResultSet rs = stmt.executeQuery(SQL);
             ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
@@ -49,7 +55,7 @@ public class Main {
             while (rs.next()) {
                 for (int i = 2; i <= columnsNumber; i++) {
                     String columnValue = rs.getString(i);
-                    System.out.println(columnValue);
+                    urls.add(columnValue);
                 }
             }
 
@@ -108,7 +114,6 @@ public class Main {
     }
 
     //Need to work on a more permanent solution
-
     /*
     public static void processArticlesViaMeta(){
         try{
