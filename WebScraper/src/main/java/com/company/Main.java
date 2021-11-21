@@ -45,7 +45,7 @@ public class Main {
         getURLs();
         processUrls();
         processArticlesViaDates();
-        saveToFile();
+        saveToDB();
         System.exit(0);
     }
 
@@ -224,6 +224,18 @@ public class Main {
      *
      */
     public static void saveToDB(){
+        try {
+            Statement stmt = Objects.requireNonNull(getConnection()).createStatement();
+
+            for (String link: articles
+                 ) {
+                String SQL = "INSERT INTO `articles` (`id`, `article_link`) VALUES (NULL,'" + link + "');";
+                stmt.execute(SQL);
+            }
+
+        }catch (Exception ex){
+            System.out.println("Couldn't insert into database " + ex);
+        }
 
     }
 
