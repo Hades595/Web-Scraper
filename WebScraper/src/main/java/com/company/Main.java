@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +25,11 @@ public class Main {
     //Article list
     public static ArrayList<String> articles = new ArrayList<>();
 
+
+    /**
+     * Defining the database to get and store URLs from
+     *
+     */
     public static java.sql.Connection getConnection(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -36,15 +42,40 @@ public class Main {
 
 
     public static void main(String[] args) {
-        readUrls();
+        getURLs();
         processUrls();
         processArticlesViaDates();
         saveToFile();
         System.exit(0);
     }
 
-    public static void readUrls(){
 
+    /**
+     * If we want to get the articles from a file
+     *
+     */
+    public static void readUrls(){
+        try {
+            //Get the list of the URLs
+            File file = new File("WebScraper/URLs.txt");
+            Scanner reader = new Scanner(file);
+            while (reader.hasNext()) {
+                //For each of the Urls in the file, add them into the array
+                String data = reader.nextLine();
+                urls.add(data);
+            }
+            reader.close();
+        }
+        catch (Exception ignore) {
+            System.out.println("Something went wrong");
+        }
+    }
+
+    /**
+     * If we want to get the articles from a database, defined at the top of the code
+     *
+     */
+    public static void getURLs(){
         try {
             Statement stmt = Objects.requireNonNull(getConnection()).createStatement();
             String SQL = "SELECT * FROM `websites`";
@@ -63,25 +94,12 @@ public class Main {
         }catch (Exception ex){
             System.out.println("Something went wrong: " + ex);
         }
-
-        /*
-        try {
-            //Get the list of the URLs
-            File file = new File("WebScraper/URLs.txt");
-            Scanner reader = new Scanner(file);
-            while (reader.hasNext()) {
-                //For each of the Urls in the file, add them into the array
-                String data = reader.nextLine();
-                urls.add(data);
-            }
-            reader.close();
-        }
-        catch (Exception ignore) {
-            System.out.println("Something went wrong");
-        }
-         */
     }
 
+    /**
+     * To process each websites articles
+     * Get the website, get all the URLs mentioned in iy
+     */
     public static void processUrls(){
         try {
             //For each of the URLs
@@ -99,6 +117,7 @@ public class Main {
 
 
                 /*
+                //Print each link found
                 for (String s : hyperLinks) {
                     System.out.println(s);
                 }
@@ -113,15 +132,14 @@ public class Main {
 
     }
 
-    //Need to work on a more permanent solution
-    /*
+
+    /**
+     * Process each URL found with the meta tags that say article
+     *
+     */
     public static void processArticlesViaMeta(){
         try{
             //All the websites have <meta property="og:type" content="article">
-            //And date of the published article
-            // Regex: ([0-9]+(/[0-9]+)+)
-
-
             for (String hyperlink : hyperLinks) {
                 //Get the document
                 Document document = Jsoup.connect(hyperlink).get();
@@ -136,22 +154,22 @@ public class Main {
                     System.out.println("Article Found! " + hyperlink);
                     System.out.println("Done");
                 }
-                else
-                    continue;
 
             }
-
-
 
         }catch (Exception ignore){
 
         }
     }
-     */
 
 
     private static final String validPattern = "([0-9]+(/[0-9]+)+)";
 
+    /**
+     * Find a valid article
+     * Compare each article found in websites with the regex and see it if fits
+     *
+     */
     public static void processArticlesViaDates(){
         try{
             //All the websites have date of the published article
@@ -174,6 +192,10 @@ public class Main {
         }
     }
 
+    /**
+     * Save the found articles to a file
+     *
+     */
     public static void saveToFile() {
         try {
             //To output the articles
@@ -194,6 +216,14 @@ public class Main {
         catch (Exception ex){
             System.out.println("Something went wrong: " + ex);
         }
+
+    }
+
+    /**
+     * Save the articles to the database defined at the top
+     *
+     */
+    public static void saveToDB(){
 
     }
 
