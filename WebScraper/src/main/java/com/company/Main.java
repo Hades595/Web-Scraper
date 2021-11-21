@@ -45,6 +45,7 @@ public class Main {
         getURLs();
         processUrls();
         processArticlesViaDates();
+        deleteDB();
         saveToDB();
         System.exit(0);
     }
@@ -237,6 +238,20 @@ public class Main {
             System.out.println("Couldn't insert into database " + ex);
         }
 
+    }
+
+    /**
+     * Delete the articles in the database defined at the top
+     *
+     */
+    public static void deleteDB(){
+        try {
+            Statement stmt = Objects.requireNonNull(getConnection()).createStatement();
+            String SQL = "DELETE FROM `articles`;";
+            stmt.execute(SQL);
+        }catch (Exception ex){
+        System.out.println("Couldn't delete articles in the database " + ex);
+        }
     }
 
 }
